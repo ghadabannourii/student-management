@@ -22,11 +22,11 @@ pipeline {
             }
         }
 
-        stage('Archive artifact'){
+      /*  stage('Archive artifact'){
             steps{
                 archiveArtifacts artifacts: 'target/*.jar'
             }
-        }
+        }*/
     }
   /*  post {
         failure {
