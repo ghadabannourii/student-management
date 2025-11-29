@@ -28,7 +28,7 @@ pipeline {
             }
         }
     }
-    post {
+  /*  post {
         failure {
             mail to:'ghadabannouri.221@gmail.com',
             subject : "Build Failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -39,5 +39,7 @@ pipeline {
             subject : "Build Success in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body : "Please go to ${env.BUILD_URL} to view the results."
         }
-    }
+    }*/
+
+
 }
