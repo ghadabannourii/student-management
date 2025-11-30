@@ -22,7 +22,7 @@ pipeline {
 
         stage('Docker Login & Push') {
             steps {
-                withDockerRegistry([credentialsId: 'dockerhub-cred', url: 'https://index.docker.io/v1/']) {
+                withDockerRegistry([credentialsId: 'ghadabannourii-cred', url: 'https://index.docker.io/v1/']) {
                     sh 'docker push $IMAGE:$TAG'
                 }
             }
