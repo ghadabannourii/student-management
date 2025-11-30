@@ -11,14 +11,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                // Skip tests to prevent Spring context failure
                 sh 'mvn -DskipTests test'
-            }
-        }
-
-        stage('Run application') {
-            steps {
-                sh 'mvn spring-boot:run'
             }
         }
     }
