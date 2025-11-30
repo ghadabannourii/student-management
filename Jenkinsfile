@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE = "ghadabannourii/student-Management"
+        IMAGE = "ghadabannourii/student"
         TAG = "latest"
     }
 
@@ -14,28 +14,17 @@ pipeline {
             }
         }
 
-       stage('Docker login') {
-                   steps {
-                       withDockerRegistry([
-                           credentialsId: 'ghadabannourii',
-                           url: 'https://index.docker.io/v1/'
-                       ]) {
-                           sh 'echo docker login successful'
-                           sh "docker push ${DOCKER_IMAGE}"
-                           sh 'echo "docker push successful"'
-                       }
-                   }
-               }
-
         stage('Build Image') {
             steps {
                 sh 'docker build -t $IMAGE:$TAG .'
             }
         }
 
-        stage('Push Image') {
+        stage('Docker Login & Push') {
             steps {
-                sh 'docker push $IMAGE:$TAG'
+                withDockerRegistry([credentialsId: 'dockerhub-cred', url: 'https://index.docker.io/v1/']) {
+                    sh 'docker push $IMAGE:$TAG'
+                }
             }
         }
     }
