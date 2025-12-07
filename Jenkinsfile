@@ -24,14 +24,16 @@ pipeline {
             steps {
                 withSonarQubeEnv('sq1') {
                     sh """
-                        mvn verify sonar:sonar \
-                            -Dsonar.projectKey=ghada \
-                            -Dsonar.host.url=http://localhost:9000 \
-                            -Dsonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
+                        mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=ghada \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
                     """
                 }
             }
         }
+
+
 
        /* stage('Docker Build & Push') {
             steps {
