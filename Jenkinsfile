@@ -33,13 +33,13 @@ pipeline {
             }
         }
 
-        stage('Docker Build & Push') {
+       /* stage('Docker Build & Push') {
             steps {
                 sh "docker build -t $IMAGE:$TAG ."
                 withDockerRegistry([credentialsId: 'ghadabannourii', url: 'https://index.docker.io/v1/']) {
                     sh "docker push $IMAGE:$TAG"
                 }
-            }
+            }*/
         }
     }
 }
