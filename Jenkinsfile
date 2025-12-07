@@ -14,35 +14,30 @@ pipeline {
             }
         }
 
-        stage('Build with Maven') {
+        stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh "mvn clean package -DskipTests"
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh '''
-                        mvn clean verify sonar:sonar \
-                        -sonar.projectKey=ghada \
-                        -sonar.host.url=http://localhost:9000 \
-                        -sonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
-                    '''
+                    sh """
+                        mvn verify sonar:sonar \
+                            -Dsonar.projectKey=ghada \
+                            -Dsonar.host.url=http://localhost:9000 \
+                            -Dsonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
+                    """
                 }
             }
         }
 
-        stage('Build Image') {
+        stage('Docker Build & Push') {
             steps {
-                sh 'docker build -t $IMAGE:$TAG .'
-            }
-        }
-
-        stage('Docker Login & Push') {
-            steps {
+                sh "docker build -t $IMAGE:$TAG ."
                 withDockerRegistry([credentialsId: 'ghadabannourii', url: 'https://index.docker.io/v1/']) {
-                    sh 'docker push $IMAGE:$TAG'
+                    sh "docker push $IMAGE:$TAG"
                 }
             }
         }
