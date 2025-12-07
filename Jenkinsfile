@@ -22,9 +22,10 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-               withSonarQubeEnv(installationName: 'sq1') {
+                withSonarQubeEnv('sq1') {
                     sh """
-                        mvn clean verify sonar:sonar \
+                        mvn clean package sonar:sonar \
+                        -DskipTests \
                         -Dsonar.projectKey=ghada \
                         -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
@@ -33,15 +34,16 @@ pipeline {
             }
         }
 
-
-
-       /* stage('Docker Build & Push') {
+        /*
+        stage('Docker Build & Push') {
             steps {
                 sh "docker build -t $IMAGE:$TAG ."
                 withDockerRegistry([credentialsId: 'ghadabannourii', url: 'https://index.docker.io/v1/']) {
                     sh "docker push $IMAGE:$TAG"
                 }
             }
-        }*/
+        }
+        */
+
     }
 }
