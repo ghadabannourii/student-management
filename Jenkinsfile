@@ -22,7 +22,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('sq1') {
                     sh """
                         mvn verify sonar:sonar \
                             -Dsonar.projectKey=ghada \
