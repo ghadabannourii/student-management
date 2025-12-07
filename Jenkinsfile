@@ -20,10 +20,15 @@ pipeline {
             }
         }
 
-        stage('MVN SONARQUBE') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh 'mvn clean verify sonar:sonar'
+                    sh '''
+                        mvn clean verify sonar:sonar \
+                        -sonar.projectKey=ghada \
+                        -sonar.host.url=http://localhost:9000 \
+                        -sonar.login=03dc318d1446a3f2cd763afb792334cb33a0b3bd
+                    '''
                 }
             }
         }
