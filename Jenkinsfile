@@ -39,7 +39,7 @@ pipeline {
                 withDockerRegistry([credentialsId: 'ghadabannourii', url: 'https://index.docker.io/v1/']) {
                     sh "docker push $IMAGE:$TAG"
                 }
-            }*/
-        }
+            }
+        }*/
     }
 }
